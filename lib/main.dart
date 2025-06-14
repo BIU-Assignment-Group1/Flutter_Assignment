@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_assignment_y4_s1/core/configs/theme/app_theme.dart';
+import 'package:flutter_assignment_y4_s1/presentation/splash/pages/splash.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,11 +12,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      home: Scaffold(
-        appBar: AppBar(title: Text("Hello Flutter")),
-        body: Center(child: Text("Welcome to Flutter")),
-      ),
+      theme: AppTheme.appTheme,
+      debugShowCheckedModeBanner: false,
+      home: const SplashPage(),
     );
   }
 }
