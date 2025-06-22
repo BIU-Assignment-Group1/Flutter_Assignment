@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_assignment_y4_s1/common/helper/navigator/app_navigator.dart';
 import 'package:flutter_assignment_y4_s1/common/widgets/appbar/app_bar.dart';
 import 'package:flutter_assignment_y4_s1/common/widgets/button/basic_app_button.dart';
+import 'package:flutter_assignment_y4_s1/data/auth/models/user_signin_req.dart';
 import 'package:flutter_assignment_y4_s1/presentation/auth/pages/enter_password.dart';
 import 'package:flutter_assignment_y4_s1/presentation/auth/pages/signup.dart';
 
 class SigninPage extends StatelessWidget {
-  const SigninPage({super.key});
+  SigninPage({super.key});
+
+  final TextEditingController _emailCon = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +48,8 @@ class SigninPage extends StatelessWidget {
   }
 
   Widget _emailField(BuildContext context) {
-    return const TextField(
+    return TextField(
+      controller: _emailCon,
       decoration: InputDecoration(
         hintText: 'Enter Email'
       ),
@@ -57,7 +61,11 @@ class SigninPage extends StatelessWidget {
       onPressed: (){
         AppNavigator.push(
           context, 
-          EnterPasswordPage()
+          EnterPasswordPage(
+            signinReq: UserSigninReq(
+              email: _emailCon.text,
+            ),
+          )
         );
       },
       title: 'Continue'

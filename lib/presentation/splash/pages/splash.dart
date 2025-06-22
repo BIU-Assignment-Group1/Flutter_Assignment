@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_assignment_y4_s1/common/helper/navigator/app_navigator.dart';
 import 'package:flutter_assignment_y4_s1/core/configs/assets/app_vectors.dart';
 import 'package:flutter_assignment_y4_s1/core/configs/theme/app_colors.dart';
 import 'package:flutter_assignment_y4_s1/presentation/auth/pages/signin.dart';
+import 'package:flutter_assignment_y4_s1/presentation/home/pages/home.dart';
 import 'package:flutter_assignment_y4_s1/presentation/splash/bloc/splash_cubit.dart';
 import 'package:flutter_assignment_y4_s1/presentation/splash/bloc/splash_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,12 +17,10 @@ class SplashPage extends StatelessWidget {
     return BlocListener<SplashCubit, SplashState>(
       listener: (context, state) {
         if(state is UnAuthenticated){
-          Navigator.pushReplacement(
-            context, 
-            MaterialPageRoute(
-              builder: (context) => const SigninPage()
-            )
-          );
+          AppNavigator.pushReplacement(context, SigninPage());
+        }
+        if(state is Authenticated) {
+          AppNavigator.pushReplacement(context, const HomePage());
         }
       },
       child: Scaffold(

@@ -3,21 +3,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_assignment_y4_s1/common/helper/navigator/app_navigator.dart';
 import 'package:flutter_assignment_y4_s1/common/widgets/appbar/app_bar.dart';
 import 'package:flutter_assignment_y4_s1/common/widgets/button/basic_app_button.dart';
-import 'package:flutter_assignment_y4_s1/presentation/auth/pages/enter_password.dart';
+import 'package:flutter_assignment_y4_s1/data/auth/models/user_creation_req.dart';
+import 'package:flutter_assignment_y4_s1/presentation/auth/pages/gender_and_age_selection.dart';
 import 'package:flutter_assignment_y4_s1/presentation/auth/pages/signin.dart';
 
 class SignupPage extends StatelessWidget {
-  const SignupPage({super.key});
+  SignupPage({super.key});
+
+  final TextEditingController _firstNameCon = TextEditingController();
+  final TextEditingController _lastNameCon = TextEditingController();
+  final TextEditingController _emailCon = TextEditingController();
+  final TextEditingController _passwordCon = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BasicAppbar(),
-      body: Padding(
+      appBar: const BasicAppbar(),
+      body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 40
-        ),
+        horizontal: 16,
+        vertical: 40
+      ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -51,7 +57,8 @@ class SignupPage extends StatelessWidget {
   }
 
   Widget _firstNameField(BuildContext context) {
-    return const TextField(
+    return TextField(
+      controller: _firstNameCon,
       decoration: InputDecoration(
         hintText: 'Firstname'
       ),
@@ -59,7 +66,8 @@ class SignupPage extends StatelessWidget {
   }
 
   Widget _lastNameField(BuildContext context) {
-    return const TextField(
+    return TextField(
+      controller: _lastNameCon,
       decoration: InputDecoration(
         hintText: 'Lastname'
       ),
@@ -67,7 +75,8 @@ class SignupPage extends StatelessWidget {
   }
 
   Widget _emailField(BuildContext context) {
-    return const TextField(
+    return TextField(
+      controller: _emailCon,
       decoration: InputDecoration(
         hintText: 'Email'
       ),
@@ -75,7 +84,8 @@ class SignupPage extends StatelessWidget {
   }
 
   Widget _passwordField(BuildContext context) {
-    return const TextField(
+    return TextField(
+      controller: _passwordCon,
       decoration: InputDecoration(
         hintText: 'Password'
       ),
@@ -86,8 +96,15 @@ class SignupPage extends StatelessWidget {
     return BasicAppButton(
       onPressed: (){
         AppNavigator.push(
-          context, 
-          EnterPasswordPage()
+          context,
+          GenderAndAgeSelectionPage(
+            userCreationReq: UserCreationReq(
+              firstName: _firstNameCon.text,
+              email: _emailCon.text,
+              lastName: _lastNameCon.text,
+              password: _passwordCon.text
+            ),
+          )
         );
       },
       title: 'Continue'
