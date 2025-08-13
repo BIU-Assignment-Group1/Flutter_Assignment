@@ -17,7 +17,7 @@ class UserModel {
     required this.lastName,
     required this.email,
     required this.image,
-    required this.gender
+    required this.gender,
   });
 
   Map<String, dynamic> toMap() {
@@ -41,11 +41,11 @@ class UserModel {
       gender: map['gender'] as int,
     );
   }
-  
 
   String toJson() => json.encode(toMap());
 
-  factory UserModel.fromJson(String source) => UserModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory UserModel.fromJson(String source) =>
+      UserModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }
 
 extension UserXModel on UserModel {
@@ -53,10 +53,10 @@ extension UserXModel on UserModel {
     return UserEntity(
       userId: userId,
       firstName: firstName,
-      lastName: lastName, 
-      email: email, 
-      image: image, 
-      gender: gender
+      lastName: lastName,
+      email: email,
+      image: image,
+      gender: gender,
     );
   }
 }

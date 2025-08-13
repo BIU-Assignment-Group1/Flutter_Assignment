@@ -3,11 +3,9 @@ import 'package:flutter_assignment_y4_s1/core/usecase/usecase.dart';
 import 'package:flutter_assignment_y4_s1/domain/auth/repository/auth.dart';
 import 'package:flutter_assignment_y4_s1/service_locator.dart';
 
-class GetUserUseCase implements UseCase<Either,dynamic> {
-
+class GetUserUseCase implements UseCase<Either, dynamic> {
   @override
   Future<Either> call({dynamic params}) async {
     return await sl<AuthRepository>().getUser();
   }
-
 }

@@ -27,30 +27,26 @@ class AuthFirebaseServiceImpl extends AuthFirebaseService {
         password: user.password!
       );
 
-    try {
-      await FirebaseFirestore.instance.collection('Users').doc(
+     await FirebaseFirestore.instance.collection('Users').doc(
         returnedData.user!.uid
-      ).set({
-        'firstName': user.firstName,
-        'lastName': user.lastName,
-        'email': user.email,
-        'gender': user.gender,
-        'age': user.age,
-        'image': returnedData.user!.photoURL,
-        'userId': returnedData.user!.uid
-      });
-
-      print('✅ Firestore write success');
-    } catch (e) {
-      print('🔥 Firestore write error: $e');
-    }
+      ).set(
+        {
+          'firstName' : user.firstName,
+          'lastName' : user.lastName,
+          'email' : user.email,
+          'gender' : user.gender,
+          'age' : user.age,
+          'image' :returnedData.user!.photoURL,
+          'userId': returnedData.user!.uid
+        }
+      );
 
       return const Right(
         'Sign up was successfull'
       );
 
     } on FirebaseAuthException catch(e){
-      String message = e.code;
+      String message = '';
       
       if(e.code == 'weak-password') {
         message = 'The password provided is too weak';
@@ -78,7 +74,6 @@ class AuthFirebaseServiceImpl extends AuthFirebaseService {
   @override
   Future<Either> signin(UserSigninReq user) async {
      try {
-      print('Trying to sign in with email: ${user.email}');
        await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: user.email!,
         password: user.password!

@@ -4,20 +4,15 @@ import 'package:flutter_assignment_y4_s1/service_locator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SplashCubit extends Cubit<SplashState> {
-
   SplashCubit() : super(DisplaySplash());
 
   void appStarted() async {
     await Future.delayed(const Duration(seconds: 2));
-    var isLoggedIn = await sl < IsLoggedInUseCase > ().call();
+    var isLoggedIn = await sl<IsLoggedInUseCase>().call();
     if (isLoggedIn) {
-      emit(
-        Authenticated()
-      );
+      emit(Authenticated());
     } else {
-      emit(
-        UnAuthenticated()
-      );
+      emit(UnAuthenticated());
     }
   }
 }

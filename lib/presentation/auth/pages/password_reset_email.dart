@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_assignment_y4_s1/common/helper/navigator/app_navigator.dart';
 import 'package:flutter_assignment_y4_s1/common/widgets/button/basic_app_button.dart';
 import 'package:flutter_assignment_y4_s1/core/configs/assets/app_vectors.dart';
-import 'package:flutter_assignment_y4_s1/presentation/auth/pages/signin.dart';
+import 'package:flutter_assignment_y4_s1/presentation/auth/pages/siginin.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class PasswordResetEmailPage extends StatelessWidget {
@@ -15,37 +15,32 @@ class PasswordResetEmailPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           _emailSending(),
-          const SizedBox(height: 30,),
+          const SizedBox(height: 30),
           _sentEmail(),
-          const SizedBox(height: 30,),
-          _returnToLoginButton(context)
+          const SizedBox(height: 30),
+          _returnToLoginButton(context),
         ],
       ),
     );
   }
+
   Widget _emailSending() {
-    return Center(
-      child: SvgPicture.asset(
-        AppVectors.emailSending
-      ),
-    );
+    return Center(child: SvgPicture.asset(AppVectors.emailSending));
   }
 
   Widget _sentEmail() {
     return const Center(
-      child: Text(
-        'We Sent you an Email to reset your password.'
-      ),
+      child: Text('We Sent you an Email to reset your password.'),
     );
   }
 
   Widget _returnToLoginButton(BuildContext context) {
     return BasicAppButton(
-      onPressed: (){
+      onPressed: () {
         AppNavigator.pushReplacement(context, SigninPage());
       },
       width: 200,
-      title: 'Return to Login'
+      title: 'Return to Login',
     );
   }
 }

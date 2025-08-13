@@ -1,24 +1,20 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_assignment_y4_s1/common/bloc/button/button_state.dart';
 import 'package:flutter_assignment_y4_s1/common/bloc/button/button_state_cubit.dart';
 import 'package:flutter_assignment_y4_s1/common/helper/navigator/app_navigator.dart';
 import 'package:flutter_assignment_y4_s1/common/widgets/appbar/app_bar.dart';
-import 'package:flutter_assignment_y4_s1/common/widgets/button/basic_app_button.dart';
 import 'package:flutter_assignment_y4_s1/common/widgets/button/basic_reactive_button.dart';
 import 'package:flutter_assignment_y4_s1/data/auth/models/user_signin_req.dart';
 import 'package:flutter_assignment_y4_s1/domain/auth/usecases/signin.dart';
 import 'package:flutter_assignment_y4_s1/presentation/auth/pages/forgot_password.dart';
-import 'package:flutter_assignment_y4_s1/presentation/auth/pages/signup.dart';
 import 'package:flutter_assignment_y4_s1/presentation/home/pages/home.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../common/bloc/button/button_state.dart';
+
 class EnterPasswordPage extends StatelessWidget {
   final UserSigninReq signinReq;
-  EnterPasswordPage({
-    required this.signinReq,
-    super.key
-  });
+  EnterPasswordPage({required this.signinReq, super.key});
 
   final TextEditingController _passwordCon = TextEditingController();
 
@@ -27,16 +23,16 @@ class EnterPasswordPage extends StatelessWidget {
     return Scaffold(
       appBar: const BasicAppbar(),
       body: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 40
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 40),
         child: BlocProvider(
           create: (context) => ButtonStateCubit(),
-          child: BlocListener<ButtonStateCubit,ButtonState>(
+          child: BlocListener<ButtonStateCubit, ButtonState>(
             listener: (context, state) {
-              if (state is ButtonFailureState){
-                var snackbar = SnackBar(content: Text(state.errorMessage),behavior: SnackBarBehavior.floating,);
+              if (state is ButtonFailureState) {
+                var snackbar = SnackBar(
+                  content: Text(state.errorMessage),
+                  behavior: SnackBarBehavior.floating,
+                );
                 ScaffoldMessenger.of(context).showSnackBar(snackbar);
               }
 
@@ -48,12 +44,12 @@ class EnterPasswordPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _siginText(context),
-                const SizedBox(height: 20,),
+                const SizedBox(height: 20),
                 _passwordField(context),
-                const SizedBox(height: 20,),
+                const SizedBox(height: 20),
                 _continueButton(context),
-                const SizedBox(height: 20,),
-                _forgotPassword(context)
+                const SizedBox(height: 20),
+                _forgotPassword(context),
               ],
             ),
           ),
@@ -65,19 +61,14 @@ class EnterPasswordPage extends StatelessWidget {
   Widget _siginText(BuildContext context) {
     return const Text(
       'Sign in',
-      style: TextStyle(
-        fontSize: 32,
-        fontWeight: FontWeight.bold
-      ),
+      style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
     );
   }
 
   Widget _passwordField(BuildContext context) {
     return TextField(
       controller: _passwordCon,
-      decoration: const InputDecoration(
-        hintText: 'Enter Password'
-      ),
+      decoration: const InputDecoration(hintText: 'Enter Password'),
     );
   }
 
@@ -85,40 +76,34 @@ class EnterPasswordPage extends StatelessWidget {
     return Builder(
       builder: (context) {
         return BasicReactiveButton(
-          onPressed: (){
+          onPressed: () {
             signinReq.password = _passwordCon.text;
             context.read<ButtonStateCubit>().execute(
               usecase: SigninUseCase(),
-              params: signinReq
+              params: signinReq,
             );
           },
-          title: 'Continue'
+          title: 'Continue',
         );
-      }
+      },
     );
   }
 
   Widget _forgotPassword(BuildContext context) {
     return RichText(
       text: TextSpan(
-        children:  [
-          const TextSpan(
-            text: "Forgot password? ",
-            style: TextStyle(
-              color: Colors.white
-            )
-          ),
-           TextSpan(
+        children: [
+          const TextSpan(text: "Forgot password? "),
+          TextSpan(
             text: 'Reset',
-            recognizer:TapGestureRecognizer()..onTap = () {
-              AppNavigator.push(context, ForgotPasswordPage());
-            } ,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.white
-            )
-          )
-        ]
+            recognizer:
+                TapGestureRecognizer()
+                  ..onTap = () {
+                    AppNavigator.push(context, ForgotPasswordPage());
+                  },
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ],
       ),
     );
   }
