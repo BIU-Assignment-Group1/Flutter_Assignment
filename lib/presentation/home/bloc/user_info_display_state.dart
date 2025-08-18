@@ -10,3 +10,5 @@ class UserInfoLoaded extends UserInfoDisplayState {
 }
 
 class LoadUserInfoFailure extends UserInfoDisplayState {}
+
+class UserLoggedOut extends UserInfoDisplayState {}

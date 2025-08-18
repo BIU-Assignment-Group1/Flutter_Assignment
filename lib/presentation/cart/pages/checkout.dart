@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_assignment_y4_s1/common/bloc/button/button_state_cubit.dart';
 import 'package:flutter_assignment_y4_s1/common/helper/cart/cart.dart';
 import 'package:flutter_assignment_y4_s1/common/widgets/button/basic_reactive_button.dart';
 import 'package:flutter_assignment_y4_s1/data/order/models/order_registration_req.dart';
+import 'package:flutter_assignment_y4_s1/domain/order/entities/order_status.dart';
 import 'package:flutter_assignment_y4_s1/domain/order/usecases/order_registration.dart';
 import 'package:flutter_assignment_y4_s1/presentation/cart/pages/order_placed.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -70,6 +72,15 @@ class CheckOutPage extends StatelessWidget {
                         ),
                       ),
                       onPressed: () {
+                        final orderCode =
+                            'ORD-${DateTime.now().millisecondsSinceEpoch}';
+                        final initialStatus = [
+                          OrderStatusEntity(
+                            title: 'Order Placed',
+                            done: true,
+                            createdDate: Timestamp.now(),
+                          ),
+                        ];
                         context.read<ButtonStateCubit>().execute(
                           usecase: OrderRegistrationUseCase(),
                           params: OrderRegistrationReq(
@@ -80,6 +91,8 @@ class CheckOutPage extends StatelessWidget {
                               products,
                             ),
                             shippingAddress: _addressCon.text,
+                            code: orderCode,
+                            orderStatus: initialStatus,
                           ),
                         );
                       },

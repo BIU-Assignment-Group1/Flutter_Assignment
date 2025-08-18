@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_assignment_y4_s1/common/bloc/button/button_state.dart';
 import 'package:flutter_assignment_y4_s1/common/bloc/button/button_state_cubit.dart';
 import 'package:flutter_assignment_y4_s1/common/helper/bottomsheet/app_bottomsheet.dart';
+import 'package:flutter_assignment_y4_s1/common/helper/navigator/app_navigator.dart';
 import 'package:flutter_assignment_y4_s1/core/configs/theme/app_colors.dart';
 import 'package:flutter_assignment_y4_s1/data/auth/models/user_creation_req.dart';
 import 'package:flutter_assignment_y4_s1/domain/auth/usecases/siginup.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_assignment_y4_s1/presentation/auth/bloc/age_selection_cu
 import 'package:flutter_assignment_y4_s1/presentation/auth/bloc/ages_display_cubit.dart';
 import 'package:flutter_assignment_y4_s1/presentation/auth/bloc/gender_selection_cubit.dart';
 import 'package:flutter_assignment_y4_s1/presentation/auth/widgets/ages.dart';
+import 'package:flutter_assignment_y4_s1/presentation/home/pages/home.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../common/widgets/appbar/app_bar.dart';
@@ -37,6 +39,10 @@ class GenderAndAgeSelectionPage extends StatelessWidget {
                 behavior: SnackBarBehavior.floating,
               );
               ScaffoldMessenger.of(context).showSnackBar(snackbar);
+            }
+
+            if (state is ButtonSuccessState) {
+              AppNavigator.pushAndRemove(context, const HomePage());
             }
           },
           child: Column(

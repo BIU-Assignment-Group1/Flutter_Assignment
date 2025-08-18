@@ -70,7 +70,7 @@ extension ProductXModel on ProductModel {
     return ProductEntity(
       categoryId: categoryId,
       colors: colors.map((e) => e.toEntity()).toList(),
-      createdDate: createdDate,
+      createdDate: createdDate.toDate(),
       discountedPrice: discountedPrice,
       gender: gender,
       images: images,
@@ -88,7 +88,7 @@ extension ProductXEntity on ProductEntity {
     return ProductModel(
       categoryId: categoryId,
       colors: colors.map((e) => e.fromEntity()).toList(),
-      createdDate: createdDate,
+      createdDate: Timestamp.fromDate(createdDate),
       discountedPrice: discountedPrice,
       gender: gender,
       images: images,
